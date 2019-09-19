@@ -18,7 +18,6 @@ class Longest extends Component {
     };
 
     handleInputChange = (event) => {
-        console.log(event.target.value);
         this.setState({
             ...this.state,
             runInfo: {
@@ -27,20 +26,21 @@ class Longest extends Component {
             }
         });
     }
+
+    checkForLongest = (recent, longest) => {
+        if (parseFloat(recent) > parseFloat(longest)){
+            return recent;
+        } else {
+            return longest;
+        }
+    }
     
     updateLongest = (event) => {
-        let recentRun = this.state.runInfo.inputValue;
-        let longestRun = this.state.displayInfo.longestRun;
-
-        if (longestRun<recentRun){
-            longestRun = recentRun;
-        }
-        
         this.setState({
             ...this.state,
             displayInfo: {
-                recentRun: recentRun,
-                longestRun: longestRun
+                recentRun: this.state.runInfo.inputValue,
+                longestRun: this.checkForLongest(this.state.runInfo.inputValue, this.state.displayInfo.longestRun,)
             }
         });
     }
